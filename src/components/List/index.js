@@ -24,11 +24,11 @@ const List = ({ items }) => (
 );
 
 List.propTypes = {
-  items: PropTypes.shape({
+  items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     title: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
-  }),
+  })),
 };
 
 List.defaultProps = {
