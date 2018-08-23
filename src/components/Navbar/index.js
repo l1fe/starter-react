@@ -6,8 +6,6 @@ import { HamburgerButton } from 'components';
 
 import styles from './styles.scss';
 
-console.log('Got styles link', styles.link);
-
 class Navbar extends PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
