@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Home, Items } from 'containers';
+import { Home, Items, Item } from 'containers';
 import { Navbar } from 'components';
 
 import styles from './styles.scss';
@@ -18,7 +18,8 @@ const Main = () => (
     <div className={styles.content}>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/items" component={Items} />
+        <Route exact path="/items" component={Items} />
+        <Route path="/items/:id" component={Item} />
       </Switch>
     </div>
   </div>
