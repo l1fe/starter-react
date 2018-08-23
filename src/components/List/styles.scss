@@ -1,0 +1,19 @@
+@import '../../styles/settings/colors';
+
+.list {
+  margin-top: 20px;
+}
+
+.item {
+  padding: 20px 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: $color-navy;
+}
+
+.total {
+  float: right;
+  color: $color-grey;
+}
