@@ -1,18 +1,48 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { List } from 'components';
+import { apiActions } from 'redux/actions';
 
-const items = [...new Array(100)].map((val, i) => ({
-  id: i,
-  title: `Item ${i}`,
-  link: `/items/${i}`,
+class Items extends PureComponent {
+  static propTypes = {
+    loading: PropTypes.bool,
+    fetchTodos: PropTypes.func.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    })),
+  }
+
+  render() {
+    const { loading, fetchTodos, items } = this.props;
+
+    return (
+      <div>
+        <h2>Items</h2>
+        <List
+          loading={loading}
+          fetchItems={() => fetchTodos()}
+          items={items}
+        />
+      </div>
+    );
+  }
+}
+
+// dummy selector
+const getAllTodos = (state) => state.entities.todos.allIds.map(id => ({
+  ...state.entities.todos.byId[id],
+  link: `/items/${id}`,
 }));
 
-const Items = () => (
-  <div>
-    <h2>Items</h2>
-    <List items={items} />
-  </div>
-);
+const mapStateToProps = (state) => ({
+  loading: state.api.todos.loading,
+  items: getAllTodos(state),
+});
 
-export default Items;
+const mapDispatchToProps = dispatch => ({
+  fetchTodos: () => dispatch(apiActions.todos.fetch()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Items);
